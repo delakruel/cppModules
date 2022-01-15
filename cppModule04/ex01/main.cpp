@@ -13,6 +13,13 @@ int main() {
 	for (int i = 0; i < 10; i++) {
 		delete anima[i];
 	}
+
+	// Dog basic;
+	// Dog tmp = basic;
+	// tmp.getBrain()->setIdea(4, "kekis");
+	// std::cout << basic.getBrain()->getIdea(4) << std::endl;//old one
+	// std::cout << tmp.getBrain()->getIdea(4) << std::endl;//kekis
+
 	// Cat test1("test1");
 	// Cat test2(test1);
 	// std::cout << test2.getBrain()->getIdea(10) << std::endl;
