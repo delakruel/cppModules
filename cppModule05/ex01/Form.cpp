@@ -1,6 +1,10 @@
 #include "Form.hpp"
 
 Form::Form(std::string name, int gradeSign, int gradeExec) : _name(name), _gradeSign(gradeSign), _gradeExec(gradeExec) {
+	if ((gradeSign > 150) || (gradeExec > 150))
+		throw GradeTooLowException();
+	if ((gradeSign < 1) || (gradeExec < 1))
+		throw GradeTooHighException();
 	this->_isSigned = 0;
 }
 
@@ -34,22 +38,24 @@ bool Form::getIsSigned() const {
 };
 
 void Form::beSigned(Bureaucrat worker) {
-
+	if (worker.getGrade() > this->getGradeSign())
+		throw GradeTooLowException();
+	this->_isSigned = 1;
 };
 
 const char* Form::GradeTooHighException::what() const throw() {
-	return "Exception! Grade is too high!";
+	return "Form exception! Grade is too high!";
 };
 
 const char* Form::GradeTooLowException::what() const throw() {
-	return "Exception! Grade is too low!";
+	return "Form exception! Grade is too low!";
 };
 
 std::ostream &operator<<(std::ostream &os,const Form &o) {
 	os << "Form " << o.getName() << " with signGrade " << o.getGradeSign() << " and with execGrade " << o.getGradeExec();
 	if (o.getIsSigned())
-		os << " is signed!" << std::endl;
+		os << " is signed!";
 	else
-		os << " is NOT signed!" << std::endl;
+		os << " is NOT signed!";
 	return (os);
 }
