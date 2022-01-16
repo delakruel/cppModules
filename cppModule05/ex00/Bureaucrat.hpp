@@ -9,7 +9,7 @@ private:
 	const std::string _name;
 	int	_grade;
 public:
-	Bureaucrat();
+	Bureaucrat(std::string name, int grade);
 	Bureaucrat(const Bureaucrat& copy);
 	Bureaucrat	&operator=(const Bureaucrat& other);
 	
@@ -19,6 +19,15 @@ public:
 	std::string getName() const;
 	void incGrade();
 	void decGrade();
+
+	class GradeTooHighException : public std::exception {
+	public:
+		const char* what() const throw();
+	};
+	class GradeTooLowException : public std::exception {
+	public:
+		const char* what() const throw();
+	};	
 };
 
 std::ostream &operator<<(std::ostream &os, const Bureaucrat &o);
