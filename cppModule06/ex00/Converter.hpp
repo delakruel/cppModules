@@ -26,17 +26,6 @@ public:
 	void	toFloat(std::string str);
 	void	toDouble(std::string str);
 	void	strCheck(std::string str);
-
-	class NonDisplayableException : public std::exception
-	{
-	public:
-		const char* what() const throw();
-	};
-	class ImpossibleException : public std::exception
-	{
-	public:
-		const char* what() const throw();
-	};
 };
 
 #endif

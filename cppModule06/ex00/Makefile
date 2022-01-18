@@ -12,7 +12,7 @@ $(NAME): $(O_FILE)
 	c++ $(O_FILE) -o $(NAME)
 
 %.o: %.cpp Converter.hpp
-	@c++ -c  $< -o $@
+	@c++ -c -Wall -Wextra -Werror $< -o $@
 
 clean:
 	@rm -f $(O_FILE)

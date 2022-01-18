@@ -14,6 +14,12 @@ Converter::Converter(const Converter& copy) {
 
 Converter	&Converter::operator=(const Converter& other) {
 	if (this != &other) {
+		this->isOk = other.isOk;
+		this->isMinus = other.isMinus;
+		this->isPseudo = other.isPseudo;
+		this->isFloat = other.isFloat;
+		this->isDouble = other.isDouble;
+		this->num = other.num;
 	}
 	return (*this);
 }
@@ -27,7 +33,7 @@ void	Converter::strCheck(std::string str) {
 
 	if (str == "nan" || str == "nanf" || str == "+inf" || str == "+inff" || str == "-inf" || str == "-inff")
 		this->isPseudo = 1;
-	for (int i = 0; i < str.size(); i++) {
+	for (size_t i = 0; i < str.size(); i++) {
 		if (str[i] != '.' && str[i] != 'f' && (str[i] < '0' || str[i] > '9') && str[i] != '-' && !this->isPseudo)
 			this->isOk = 0;
 		if (str[i] == '.')
@@ -46,8 +52,8 @@ void	Converter::strCheck(std::string str) {
 			if (dot == 1)
 				this->isDouble = 1;
 	}
-	//if (minus > 0) 
-	//	this->isMinus = 1;
+	if (minus == 1 && str[0] != '-')
+		this->isOk = 0; 
 	if (this->isOk) {
 		if (this->isPseudo) {
 			if (str == "nan" || str == "+inf" || str == "-inf")
@@ -107,7 +113,7 @@ void	Converter::toDouble(std::string str) {
 		if (this->isDouble)
 			std::cout << str;
 		else
-			for (int i = 0; i < str.size() - 1; i++)
+			for (size_t i = 0; i < str.size() - 1; i++)
 				std::cout << str[i];
 		std::cout << std::endl;
 		return ;
