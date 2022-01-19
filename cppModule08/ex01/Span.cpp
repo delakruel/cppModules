@@ -4,11 +4,27 @@ Span::Span(unsigned int n) : _n(n) {
 }
 
 Span::Span(const Span& copy) {
-	*this = copy;
+	this->_n = copy._n;
+	if (this->_n > 0) {
+		std::multiset<int>::iterator iter = copy.mSet.begin();
+		while (iter != copy.mSet.end()) {
+			this->mSet.insert(*iter);
+			++iter;
+		}
+	}
 }
 
 Span	&Span::operator=(const Span& other) {
 	if (this != &other) {
+		this->mSet.clear();
+		this->_n = other._n;
+		if (this->_n > 0) {
+			std::multiset<int>::iterator iter = other.mSet.begin();
+			while (iter != other.mSet.end()) {
+				this->mSet.insert(*iter);
+				++iter;
+			}
+		}
 	}
 	return (*this);
 }
@@ -41,6 +57,14 @@ unsigned int		Span::longestSpan() {
 		throw SpanException();
 	return (static_cast<unsigned int>(*--mSet.end()) - static_cast<unsigned int>(*mSet.begin()));
 };
+
+void	Span::print() {
+	std::multiset<int>::iterator iter ;
+	for (iter = this->mSet.begin(); iter != this->mSet.end(); ++iter)
+		std::cout << *iter << ' ';
+	if (this->mSet.size() != 0)
+		std::cout << std::endl;
+}
 
 const char* Span::OverflowException::what() const throw() {
 	return "Exception! You are trying to overflow Span!";
